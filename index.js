@@ -46,5 +46,5 @@ exports.getStream = async function (event, context) {
 };
 
 function getAccountId(context) {
-  const awsAccountId = context.invokedFunctionArn.split(":")[4];
+  return context.invokedFunctionArn.split(":")[4];
 }

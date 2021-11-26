@@ -86,6 +86,24 @@ Resources:
           - LambdaExecutionRole
           - Arn
 
+  EventWorker:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: worker.handleSessionEnd
+      Runtime: nodejs12.x
+      Events:
+        Trigger:
+          Type: CloudWatchEvent
+          Properties:
+            Pattern:
+              source:
+                - "aws.ivs"
+              detail-type:
+                - "IVS Stream State Change"
+              detail:
+                event_name:
+                  - "Session Ended"
+
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
