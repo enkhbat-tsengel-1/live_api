@@ -49,7 +49,7 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /channel/${id}
+            Path: /channel/{id}
             Method: get
       Role:
         Fn::GetAtt:
@@ -58,7 +58,7 @@ Resources:
   ListStream:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.listStream
+      Handler: index.listStreams
       Runtime: nodejs12.x
       Events:
         GetEvent:
