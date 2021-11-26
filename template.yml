@@ -58,7 +58,6 @@ Resources:
   ListStream:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/
       Handler: index.listStream
       Runtime: nodejs12.x
       Events:
@@ -74,7 +73,6 @@ Resources:
   GetStream:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/
       Handler: index.getStream
       Runtime: nodejs12.x
       Events:
