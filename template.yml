@@ -127,6 +127,7 @@ Resources:
   SessionEndQueue:
     Type: AWS::SQS::Queue
     Properties:
+      DelaySeconds: 120
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
