@@ -109,7 +109,7 @@ Resources:
           - Arn
       Environment:
         Variables:
-          QUEUE_URL: !Ref: SessionEndQueue
+          QUEUE_URL: Ref: SessionEndQueue
 
   DeleteChannelFunction:
     Type: AWS::Serverless::Function
