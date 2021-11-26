@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 const ivs = new AWS.IVS();
 
 exports.createChannel = async function (event, context) {
-  const res = await ivs.createChannel({ name: uuidv4() });
+  const res = await ivs.createChannel({ name: uuidv4() }).promise();
   return {
     statusCode: 200,
     body: JSON.stringify(res),
@@ -12,15 +12,19 @@ exports.createChannel = async function (event, context) {
 };
 
 exports.getChannel = async function (event, context) {
-  // const res = await ivs.getChannel({ arn: `arn:aws:ivs:us-west-2:123456789012:channel/${event.}` });
+  const res = await ivs
+    .getChannel({
+      arn: `arn:aws:ivs:us-west-2:123456789012:channel/${event.pathParameters.id}`,
+    })
+    .promise();
   return {
     statusCode: 200,
-    body: JSON.stringify(event),
+    body: JSON.stringify(res),
   };
 };
 
 exports.listStreams = async function (event, context) {
-  const res = await ivs.listStreams({});
+  const res = await ivs.listStreams({}).promise();
   return {
     statusCode: 200,
     body: JSON.stringify(res),
@@ -28,8 +32,13 @@ exports.listStreams = async function (event, context) {
 };
 
 exports.getStream = async function (event, context) {
+  const res = await ivs
+    .getStream({
+      arn: `arn:aws:ivs:us-west-2:123456789012:channel/${event.pathParameters.id}`,
+    })
+    .promise();
   return {
     statusCode: 200,
-    body: JSON.stringify(event),
+    body: JSON.stringify(res),
   };
 };

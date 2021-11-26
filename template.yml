@@ -49,7 +49,7 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /channel/:id
+            Path: /channel/${id}
             Method: get
       Role:
         Fn::GetAtt:
@@ -79,7 +79,7 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /stream/:id
+            Path: /stream/{id}
             Method: get
       Role:
         Fn::GetAtt:
