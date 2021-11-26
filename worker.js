@@ -19,7 +19,7 @@ exports.deleteChannel = async function (event, context) {
   const endEvent = JSON.parse(event.Records[0].body);
   try {
     const result = await Promise.all(
-      endEvent.resources.map((arn) => ivs.deleteChannel({ arn }))
+      endEvent.resources.map((arn) => ivs.deleteChannel({ arn }).promise())
     );
     console.info(result);
   } catch (error) {
