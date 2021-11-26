@@ -12,9 +12,10 @@ exports.createChannel = async function (event, context) {
 };
 
 exports.getChannel = async function (event, context) {
+  const accountId = getAccountId(context);
   const res = await ivs
     .getChannel({
-      arn: `arn:aws:ivs:us-west-2:123456789012:channel/${event.pathParameters.id}`,
+      arn: `arn:aws:ivs:us-west-2:${accountId}:channel/${event.pathParameters.id}`,
     })
     .promise();
   return {
@@ -32,9 +33,10 @@ exports.listStreams = async function (event, context) {
 };
 
 exports.getStream = async function (event, context) {
+  const accountId = getAccountId(context);
   const res = await ivs
     .getStream({
-      arn: `arn:aws:ivs:us-west-2:123456789012:channel/${event.pathParameters.id}`,
+      arn: `arn:aws:ivs:us-west-2:${accountId}:channel/${event.pathParameters.id}`,
     })
     .promise();
   return {
@@ -42,3 +44,7 @@ exports.getStream = async function (event, context) {
     body: JSON.stringify(res),
   };
 };
+
+function getAccountId(context) {
+  const awsAccountId = context.invokedFunctionArn.split(":")[4];
+}
