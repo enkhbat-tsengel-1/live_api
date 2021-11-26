@@ -121,14 +121,12 @@ Resources:
         MySQSEvent:
           Type: SQS
           Properties:
-            Queue:
-              Fn::GetAtt:
-                - SessionEndQueue
-                - Arn
+            Queue: !GetAtt SessionEndQueue.Arn
             BatchSize: 1
 
   SessionEndQueue:
     Type: AWS::SQS::Queue
+    Properties:
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
@@ -158,4 +156,4 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: "sqs:SendMessage"
-                Resource: !GetAtt: SessionEndQueue.Arn
+                Resource: !GetAtt SessionEndQueue.Arn
