@@ -15,7 +15,7 @@ exports.getChannel = async function (event, context) {
   const accountId = getAccountId(context);
   const res = await ivs
     .getChannel({
-      arn: `arn:aws:ivs:us-west-2:${accountId}:channel/${event.pathParameters.id}`,
+      arn: `arn:aws:ivs:eu-west-1:${accountId}:channel/${event.pathParameters.id}`,
     })
     .promise();
   return {
@@ -36,7 +36,7 @@ exports.getStream = async function (event, context) {
   const accountId = getAccountId(context);
   const res = await ivs
     .getStream({
-      arn: `arn:aws:ivs:us-west-2:${accountId}:channel/${event.pathParameters.id}`,
+      arn: `arn:aws:ivs:eu-west-1:${accountId}:channel/${event.pathParameters.id}`,
     })
     .promise();
   return {
