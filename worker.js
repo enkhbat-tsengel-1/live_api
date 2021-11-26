@@ -17,7 +17,7 @@ exports.handleSessionEnd = async function (event, context) {
 exports.deleteChannel = async function (event, context) {
   console.log(event.Records);
   const endEvent = JSON.parse(event.Records[0].body);
-  endEvent.resources.forEach((arn) => {
+  endEvent.resources.forEach(async (arn) => {
     await ivs.deleteChannel({ arn }).promise();
   });
 };
