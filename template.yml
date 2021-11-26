@@ -36,13 +36,6 @@ Resources:
           Properties:
             Path: /channel
             Method: post
-      Policies:
-        - Statement:
-            - Sid: ivsPolicy
-              Effect: Allow
-              Action:
-                - ivs:*
-              Resource: "*"
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -59,13 +52,6 @@ Resources:
           Properties:
             Path: /channel/:id
             Method: get
-      Policies:
-        - Statement:
-            - Sid: ivsPolicy
-              Effect: Allow
-              Action:
-                - ivs:*
-              Resource: "*"
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -82,13 +68,6 @@ Resources:
           Properties:
             Path: /stream
             Method: get
-      Policies:
-        - Statement:
-            - Sid: ivsPolicy
-              Effect: Allow
-              Action:
-                - ivs:*
-              Resource: "*"
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -105,13 +84,6 @@ Resources:
           Properties:
             Path: /stream/:id
             Method: get
-      Policies:
-        - Statement:
-            - Sid: ivsPolicy
-              Effect: Allow
-              Action:
-                - ivs:*
-              Resource: "*"
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -132,3 +104,10 @@ Resources:
       ManagedPolicyArns:
         - !Sub "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
       PermissionsBoundary: !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary"
+      Policies:
+        - Statement:
+            - Sid: ivsPolicy
+              Effect: Allow
+              Action:
+                - ivs:*
+              Resource: "*"
