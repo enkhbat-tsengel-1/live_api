@@ -11,6 +11,14 @@ exports.createChannel = async function (event, context) {
   };
 };
 
+exports.getChannel = async function (event, context) {
+  // const res = await ivs.getChannel({ arn: `arn:aws:ivs:us-west-2:123456789012:channel/${event.}` });
+  return {
+    statusCode: 200,
+    body: JSON.stringify(event),
+  };
+};
+
 exports.listStreams = async function (event, context) {
   const res = await ivs.listStreams({});
   return {
@@ -19,10 +27,9 @@ exports.listStreams = async function (event, context) {
   };
 };
 
-exports.getChannel = async function (event, context) {
-  const res = await ivs.getChannel({ arn: event.arn });
+exports.getStream = async function (event, context) {
   return {
     statusCode: 200,
-    body: JSON.stringify(res),
+    body: JSON.stringify(event),
   };
 };

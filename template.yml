@@ -19,9 +19,20 @@ Globals:
   Function:
     AutoPublishAlias: live
     DeploymentPreference:
-      Enabled: true
+      Enabled: false
       Type: Canary10Percent5Minutes
       Role: !Ref CodeDeployRole
+    Policies:
+      - Statement:
+          - Sid: ivsPolicy
+            Effect: Allow
+            Action:
+              - ivs:*
+            Resource: "*"
+    Role:
+      Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
 
 Resources:
   CreateChannel:
@@ -31,23 +42,52 @@ Resources:
       CodeUri: src/
       Handler: index.createChannel
       Runtime: nodejs12.x
-      Policies:
-        - Statement:
-            - Sid: ivsPolicy
-              Effect: Allow
-              Action:
-                - ivs:*
-              Resource: "*"
-      Role:
-        Fn::GetAtt:
-          - LambdaExecutionRole
-          - Arn
       Events:
         GetEvent:
           Type: Api
           Properties:
-            Path: /live
+            Path: /channel
+            Method: post
+  GetChannel:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetHelloWorld"
+      CodeUri: src/
+      Handler: index.getChannel
+      Runtime: nodejs12.x
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /channel/:id
             Method: get
+  ListStream:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetHelloWorld"
+      CodeUri: src/
+      Handler: index.listStream
+      Runtime: nodejs12.x
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /stream
+            Method: get
+  GetStream:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetHelloWorld"
+      CodeUri: src/
+      Handler: index.getStream
+      Runtime: nodejs12.x
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /stream/:id
+            Method: get
+
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
