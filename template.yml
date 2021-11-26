@@ -123,6 +123,10 @@ Resources:
           Properties:
             Queue: !GetAtt SessionEndQueue.Arn
             BatchSize: 1
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
 
   SessionEndQueue:
     Type: AWS::SQS::Queue
