@@ -100,7 +100,6 @@ Resources:
       Path: /
       ManagedPolicyArns:
         - !Sub "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-      PermissionsBoundary: !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary"
       Policies:
         - PolicyName: ivsAccess
           PolicyDocument:
