@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 
 const ivs = new AWS.IVS();
 
-const REGION = process.env.REGION;
+const REGION = "eu-west-1";
 
 exports.createChannel = async function (event, context) {
   const res = await ivs.createChannel({ name: uuidv4() }).promise();
