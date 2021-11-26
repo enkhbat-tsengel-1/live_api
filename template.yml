@@ -22,7 +22,6 @@ Globals:
       Enabled: false
       Type: Canary10Percent5Minutes
       Role: !Ref CodeDeployRole
-    CodeUri: src/
 
 Resources:
   CreateChannel:
