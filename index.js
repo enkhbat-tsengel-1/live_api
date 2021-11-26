@@ -38,7 +38,7 @@ exports.getStream = async function (event, context) {
   const accountId = getAccountId(context);
   const res = await ivs
     .getStream({
-      arn: `arn:aws:ivs:${REGION}:${accountId}:channel/${event.pathParameters.id}`,
+      channelArn: `arn:aws:ivs:${REGION}:${accountId}:channel/${event.pathParameters.id}`,
     })
     .promise();
   return {
