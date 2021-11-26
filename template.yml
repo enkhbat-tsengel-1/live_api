@@ -22,24 +22,14 @@ Globals:
       Enabled: false
       Type: Canary10Percent5Minutes
       Role: !Ref CodeDeployRole
-    Policies:
-      - Statement:
-          - Sid: ivsPolicy
-            Effect: Allow
-            Action:
-              - ivs:*
-            Resource: "*"
-    Role:
-      Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+    CodeUri: src/
 
 Resources:
   CreateChannel:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetHelloWorld"
-      CodeUri: src/
+
       Handler: index.createChannel
       Runtime: nodejs12.x
       Events:
@@ -48,6 +38,18 @@ Resources:
           Properties:
             Path: /channel
             Method: post
+      Policies:
+        - Statement:
+            - Sid: ivsPolicy
+              Effect: Allow
+              Action:
+                - ivs:*
+              Resource: "*"
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+
   GetChannel:
     Type: AWS::Serverless::Function
     Properties:
@@ -61,6 +63,17 @@ Resources:
           Properties:
             Path: /channel/:id
             Method: get
+      Policies:
+        - Statement:
+            - Sid: ivsPolicy
+              Effect: Allow
+              Action:
+                - ivs:*
+              Resource: "*"
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
   ListStream:
     Type: AWS::Serverless::Function
     Properties:
@@ -74,6 +87,17 @@ Resources:
           Properties:
             Path: /stream
             Method: get
+      Policies:
+        - Statement:
+            - Sid: ivsPolicy
+              Effect: Allow
+              Action:
+                - ivs:*
+              Resource: "*"
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
   GetStream:
     Type: AWS::Serverless::Function
     Properties:
@@ -87,6 +111,17 @@ Resources:
           Properties:
             Path: /stream/:id
             Method: get
+      Policies:
+        - Statement:
+            - Sid: ivsPolicy
+              Effect: Allow
+              Action:
+                - ivs:*
+              Resource: "*"
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
