@@ -103,6 +103,28 @@ Resources:
               detail:
                 event_name:
                   - "Session Ended"
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Environment:
+        Variables:
+          QUEUE_URL: !Ref: SessionEndQueue
+
+  DeleteChannelFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: worker.deleteChannel
+      Runtime: nodejs12.x
+      Events:
+        MySQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt SessionEndQueue.Arn
+            BatchSize: 1
+
+  SessionEndQueue:
+    Type: AWS::SQS::Queue
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
@@ -126,3 +148,10 @@ Resources:
               - Effect: Allow
                 Action: "ivs:*"
                 Resource: "*"
+        - PolicyName: createQueue
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: "sqs:SendMessage"
+                Resource: !GetAtt: SessionEndQueue.Arn

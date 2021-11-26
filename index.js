@@ -3,6 +3,8 @@ const { v4: uuidv4 } = require("uuid");
 
 const ivs = new AWS.IVS();
 
+const REGION = process.env.REGION;
+
 exports.createChannel = async function (event, context) {
   const res = await ivs.createChannel({ name: uuidv4() }).promise();
   return {
@@ -15,7 +17,7 @@ exports.getChannel = async function (event, context) {
   const accountId = getAccountId(context);
   const res = await ivs
     .getChannel({
-      arn: `arn:aws:ivs:eu-west-1:${accountId}:channel/${event.pathParameters.id}`,
+      arn: `arn:aws:ivs:${REGION}:${accountId}:channel/${event.pathParameters.id}`,
     })
     .promise();
   return {
@@ -36,7 +38,7 @@ exports.getStream = async function (event, context) {
   const accountId = getAccountId(context);
   const res = await ivs
     .getStream({
-      arn: `arn:aws:ivs:eu-west-1:${accountId}:channel/${event.pathParameters.id}`,
+      arn: `arn:aws:ivs:${REGION}:${accountId}:channel/${event.pathParameters.id}`,
     })
     .promise();
   return {
