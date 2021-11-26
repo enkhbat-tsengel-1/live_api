@@ -7,12 +7,12 @@ exports.handleSessionEnd = async function (event, context) {
     .sendMessage({
       QueueUrl: process.env.QUEUE_URL,
       DelaySeconds: 120,
-      MessageBody: JSON.stringify(event.Records[0]),
+      MessageBody: JSON.stringify(event),
     })
     .promise();
   console.log(event);
 };
 
 exports.deleteChannel = async function (event, context) {
-  console.log(event);
+  console.log(event.Records);
 };
