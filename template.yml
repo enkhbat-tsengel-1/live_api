@@ -121,7 +121,10 @@ Resources:
         MySQSEvent:
           Type: SQS
           Properties:
-            Queue: !GetAtt SessionEndQueue.Arn
+            Queue:
+              Fn::GetAtt:
+                - SessionEndQueue
+                - Arn
             BatchSize: 1
 
   SessionEndQueue:
