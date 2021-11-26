@@ -105,9 +105,10 @@ Resources:
         - !Sub "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
       PermissionsBoundary: !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary"
       Policies:
-        - Statement:
-            - Sid: ivsPolicy
-              Effect: Allow
-              Action:
-                - ivs:*
-              Resource: "*"
+        - PolicyName: ivsAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: "ivs:*"
+                Resource: "*"
