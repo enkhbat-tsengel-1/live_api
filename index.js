@@ -47,6 +47,23 @@ exports.getStream = async function (event, context) {
   };
 };
 
+exports.putMetadata = async function (event, context) {
+  const accountId = getAccountId(context);
+  await ivs
+    .putMetadata({
+      channelArn: `arn:aws:ivs:${REGION}:${accountId}:channel/${event.pathParameters.id}`,
+      metadata: event.body,
+    })
+    .promise();
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      statusCode: 200,
+      body: event.body,
+    }),
+  };
+};
+
 function getAccountId(context) {
   return context.invokedFunctionArn.split(":")[4];
 }

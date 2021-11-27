@@ -79,8 +79,24 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /stream/{id}
+            Path: /channel/{id}/stream
             Method: get
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+
+  PutMetadata:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.putMetadata
+      Runtime: nodejs12.x
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /channel/{id}/metadata
+            Method: put
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
