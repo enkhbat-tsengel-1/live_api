@@ -7,7 +7,6 @@ exports.handleSessionEnd = async function (event, context) {
   await sqs
     .sendMessage({
       QueueUrl: process.env.QUEUE_URL,
-      DelaySeconds: 120,
       MessageBody: JSON.stringify(event),
     })
     .promise();

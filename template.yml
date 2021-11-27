@@ -86,6 +86,22 @@ Resources:
           - LambdaExecutionRole
           - Arn
 
+  GetStreamKey:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.getStreamKey
+      Runtime: nodejs12.x
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /channel/{id}/stream_key
+            Method: get
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+
   PutMetadata:
     Type: AWS::Serverless::Function
     Properties:
@@ -147,7 +163,7 @@ Resources:
   SessionEndQueue:
     Type: AWS::SQS::Queue
     Properties:
-      DelaySeconds: 120
+      DelaySeconds: 60
 
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
